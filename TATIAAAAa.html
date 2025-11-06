@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perpustakaan Spesial untuk Tatia</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;600&display=swap');
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Lora',serif;background:linear-gradient(135deg,#f5e6d3 0%,#d4a574 100%);color:#3e2723;padding:20px;min-height:100vh}
+        .container{max-width:1200px;margin:0 auto}
+        .header{text-align:center;padding:60px 20px;animation:fadeIn 1s ease}
+        .header h1{font-family:'Playfair Display',serif;font-size:3.5rem;color:#5d4037;margin-bottom:1rem}
+        .header p{font-size:1.3rem;color:#6d4c41}
+        .header .subtitle{font-size:1.1rem;color:#8d6e63;margin-top:10px;font-style:italic}
+        .section{background:rgba(255,255,255,0.95);border-radius:15px;padding:40px;margin:30px 0;box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+        .section h2{font-family:'Playfair Display',serif;font-size:2.5rem;color:#5d4037;margin-bottom:30px;text-align:center}
+        .books{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;margin-top:30px}
+        .book{background:white;border-radius:12px;padding:25px;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:transform 0.3s}
+        .book:hover{transform:translateY(-5px)}
+        .book-cover{width:100%;height:350px;background:linear-gradient(135deg,#8d6e63,#5d4037);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;font-size:2.5rem;margin-bottom:20px;padding:20px;text-align:center}
+        .book-cover .icon{font-size:4rem;margin-bottom:10px}
+        .book-cover .title{font-size:1.3rem;font-family:'Playfair Display',serif}
+        .book h3{font-family:'Playfair Display',serif;font-size:1.8rem;color:#3e2723;margin-bottom:8px}
+        .book .author{font-style:italic;color:#6d4c41;margin-bottom:15px;font-size:1.1rem}
+        .book .genre{display:inline-block;background:#f5e6d3;color:#5d4037;padding:5px 15px;border-radius:20px;font-size:0.85rem;margin-bottom:15px}
+        .book .desc{color:#5d4037;line-height:1.7;margin-bottom:15px;font-size:1.05rem}
+        .book .reason{background:#fff8e1;padding:15px;border-radius:8px;border-left:4px solid #8d6e63;font-size:0.95rem;color:#5d4037;margin-bottom:15px;line-height:1.6}
+        .book .reason strong{display:block;margin-bottom:5px;color:#3e2723;font-size:1.05rem}
+        .read-buttons{display:flex;gap:10px;margin-bottom:15px;flex-wrap:wrap}
+        .read-btn{flex:1;min-width:140px;padding:12px 20px;border:none;border-radius:8px;font-family:'Lora',serif;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.3s;text-decoration:none;display:inline-block;text-align:center}
+        .read-btn.free{background:#4caf50;color:white}
+        .read-btn.free:hover{background:#45a049;transform:translateY(-2px);box-shadow:0 5px 15px rgba(76,175,80,0.4)}
+        .read-btn.secondary{background:white;color:#5d4037;border:2px solid #8d6e63}
+        .read-btn.secondary:hover{background:#f5e6d3;transform:translateY(-2px)}
+        .spotify-embed{margin-top:15px;text-align:center;background:#f5f5f5;padding:15px;border-radius:10px}
+        .spotify-embed p{font-size:0.9rem;color:#5d4037;margin-bottom:10px;font-weight:600}
+        .quote{text-align:center;padding:40px;position:relative}
+        .quote::before{content:'"';position:absolute;top:-10px;left:30px;font-size:6rem;color:#d4a574;font-family:'Playfair Display',serif;opacity:0.3}
+        .quote p{font-family:'Playfair Display',serif;font-size:1.8rem;color:#3e2723;margin-bottom:15px;line-height:1.6;position:relative;z-index:1}
+        .quote .author{font-size:1.1rem;color:#6d4c41;font-style:italic}
+        .message{text-align:center;font-size:1.2rem;color:#5d4037;line-height:1.8}
+        .signature{margin-top:20px;font-family:'Playfair Display',serif;font-size:1.4rem;color:#3e2723}
+        .sticky-player{position:fixed;bottom:20px;right:20px;background:rgba(255,255,255,0.98);border-radius:12px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,0.3);max-width:350px;z-index:1000;animation:slideIn 0.5s ease}
+        .sticky-player h4{font-family:'Playfair Display',serif;color:#3e2723;margin-bottom:10px;display:flex;align-items:center;gap:8px;font-size:1.2rem}
+        .sticky-player p{font-size:0.9rem;color:#6d4c41;margin-bottom:10px}
+        .close-btn{position:absolute;top:10px;right:10px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#8d6e63;transition:color 0.3s}
+        .close-btn:hover{color:#5d4037}
+        .free-badge{display:inline-block;background:#4caf50;color:white;padding:3px 10px;border-radius:12px;font-size:0.75rem;margin-left:8px;font-weight:600}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
+        @media(max-width:768px){.header h1{font-size:2rem}.section h2{font-size:1.8rem}.books{grid-template-columns:1fr}.sticky-player{bottom:10px;right:10px;left:10px;max-width:none}.read-buttons{flex-direction:column}.read-btn{min-width:100%}}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Perpustakaan Spesial</h1>
+            <p>Untuk <strong>Tatia</strong></p>
+            <p class="subtitle">Karena kamu suka George Orwell dan buku-buku yang bermakna</p>
+        </div>
+
+        <div class="section">
+            <h2>Rekomendasi Buku Untukmu</h2>
+            <div class="books">
+                <!-- Buku 1: 1984 -->
+                <div class="book">
+                    <div class="book-cover">
+                        <div class="icon">📖</div>
+                        <div class="title">1984</div>
+                    </div>
+                    <h3>1984 <span class="free-badge">GRATIS</span></h3>
+                    <p class="author">oleh George Orwell</p>
+                    <span class="genre">Dystopian Fiction</span>
+                    <p class="desc">
+                        Novel distopia klasik tentang totalitarianisme dan pengawasan massa. 
+                        Mengikuti Winston Smith dalam perjuangannya melawan rezim otoriter Big Brother. 
+                        Sebuah peringatan tentang bahaya kekuasaan absolut dan manipulasi kebenaran.
+                    </p>
+                    <div class="reason">
+                        <strong>💭 Kenapa buku ini?</strong>
+                        Karya masterpiece Orwell yang paling terkenal. Relevan banget dengan zaman sekarang. 
+                        Buku ini akan membuat kamu berpikir tentang kebebasan, privasi, dan kekuasaan. 
+                        Setiap halaman penuh dengan insight yang mendalam.
+                    </div>
+                    <div class="read-buttons">
+                        <a href="https://www.gutenberg.org/ebooks/61234" target="_blank" class="read-btn free">
+                            📖 Baca Gratis (EN)
+                        </a>
+                        <a href="https://books.google.co.id/books?id=kotPYEqx7kMC" target="_blank" class="read-btn secondary">
+                            👁️ Preview Google Books
+                        </a>
+                    </div>
+                    <div class="spotify-embed">
+                        <p>🎵 Playlist Tatia untuk menemani baca:</p>
+                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/7frpGr74obcwBnUWTL6eGy?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    </div>
+                </div>
+
+                <!-- Buku 2: Animal Farm -->
+                <div class="book">
+                    <div class="book-cover">
+                        <div class="icon">🐷</div>
+                        <div class="title">Animal Farm</div>
+                    </div>
+                    <h3>Animal Farm <span class="free-badge">GRATIS</span></h3>
+                    <p class="author">oleh George Orwell</p>
+                    <span class="genre">Political Satire</span>
+                    <p class="desc">
+                        Alegori politik yang brilian tentang revolusi dan korupsi kekuasaan. 
+                        Hewan-hewan di sebuah peternakan memberontak melawan pemiliknya, 
+                        tapi kekuasaan baru mereka perlahan berubah menjadi tirani.
+                    </p>
+                    <div class="reason">
+                        <strong>💭 Kenapa buku ini?</strong>
+                        Karya Orwell lainnya yang wajib dibaca. Meskipun ceritanya tentang hewan, 
+                        pesannya sangat dalam tentang sifat manusia dan politik. Singkat tapi powerful. 
+                        Kamu pasti akan suka cara Orwell menyampaikan kritik sosialnya.
+                    </div>
+                    <div class="read-buttons">
+                        <a href="https://www.gutenberg.org/ebooks/63034" target="_blank" class="read-btn free">
+                            📖 Baca Gratis (EN)
+                        </a>
+                        <a href="https://books.google.co.id/books?id=yxv1LK5gyV4C" target="_blank" class="read-btn secondary">
+                            👁️ Preview Google Books
+                        </a>
+                    </div>
+                    <div class="spotify-embed">
+                        <p>🎵 Playlist Tatia untuk menemani baca:</p>
+                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/7frpGr74obcwBnUWTL6eGy?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    </div>
+                </div>
+
+                <!-- Buku 3: Homage to Catalonia -->
+                <div class="book">
+                    <div class="book-cover">
+                        <div class="icon">✊</div>
+                        <div class="title">Homage to Catalonia</div>
+                    </div>
+                    <h3>Homage to Catalonia <span class="free-badge">GRATIS</span></h3>
+                    <p class="author">oleh George Orwell</p>
+                    <span class="genre">Memoir / Non-Fiction</span>
+                    <p class="desc">
+                        Memoar personal Orwell tentang pengalamannya dalam Perang Saudara Spanyol. 
+                        Kisah nyata tentang idealisme, perang, dan pengkhianatan politik. 
+                        Tulisan yang jujur dan penuh dengan refleksi mendalam.
+                    </p>
+                    <div class="reason">
+                        <strong>💭 Kenapa buku ini?</strong>
+                        Buku ini menunjukkan sisi lain Orwell - pengalaman pribadinya yang membentuk 
+                        pandangan politiknya. Sangat personal dan autentik. Kalau kamu suka Orwell, 
+                        buku ini akan memberi perspektif baru tentang pemikirannya.
+                    </div>
+                    <div class="read-buttons">
+                        <a href="https://www.fadedpage.com/books/20140827/html.php" target="_blank" class="read-btn free">
+                            📖 Baca Gratis (EN)
+                        </a>
+                        <a href="https://books.google.co.id/books?id=0K3XAAAAMAAJ" target="_blank" class="read-btn secondary">
+                            👁️ Preview Google Books
+                        </a>
+                    </div>
+                    <div class="spotify-embed">
+                        <p>🎵 Playlist Tatia untuk menemani baca:</p>
+                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/7frpGr74obcwBnUWTL6eGy?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen

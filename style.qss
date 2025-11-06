@@ -1,0 +1,67 @@
+/* Global */
+* { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11pt; }
+QWidget { background: #0f172a; color: #e5e7eb; } /* slate-900 bg, zinc-200 text */
+
+/* Card */
+#Card {
+  background: #111827; /* gray-900 */
+  border: 1px solid #1f2937; /* gray-800 */
+  border-radius: 16px;
+}
+#Title {
+  font-size: 20pt;
+  font-weight: 700;
+  color: #93c5fd; /* blue-300 */
+}
+#Subtitle {
+  color: #9ca3af; /* gray-400 */
+  padding-bottom: 8px;
+}
+
+/* Inputs */
+QLineEdit {
+  background: #0b1220;
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  padding: 10px 12px;
+  selection-background-color: #2563eb;
+}
+QLineEdit:focus {
+  border: 1px solid #2563eb;
+}
+
+/* Buttons */
+QPushButton {
+  background: #2563eb;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: white;
+  font-weight: 600;
+}
+QPushButton:hover { background: #1d4ed8; }
+QPushButton:pressed { background: #1e40af; }
+QPushButton#Ghost {
+  background: transparent;
+  border: 1px solid #334155;
+  color: #cbd5e1;
+}
+QPushButton#Danger {
+  background: #ef4444;
+}
+QPushButton#Danger:hover { background: #dc2626; }
+
+/* Labels */
+#Error {
+  color: #f87171;
+  font-size: 10pt;
+}
+
+/* ToolButtons (eye) */
+QToolButton {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  font-size: 12pt;
+}
+QToolButton:hover { color: #93c5fd; }
